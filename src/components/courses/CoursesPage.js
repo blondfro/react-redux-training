@@ -1,22 +1,23 @@
 import React from "react";
+import { connect } from "react-redux";
+import * as courseActions from "../../redux/actions/courseActions";
+import PropTypes from "prop-types";
 
 class CoursesPage extends React.Component {
-
-    state = {
-      course: {
-        title: ""
-      }
-    };
-
-
-  handleChange = (event) => {
-      const course = {...this.state.course, title: event.target.value};
-      this.setState({course: course}); // I can omit the 2nd course because it matches the left side.  this is called the object shorthand syntax. this.setState({course})
+  state = {
+    course: {
+      title: ""
+    }
   };
 
-  handleSubmit = (event) => {
-      event.preventDefault()
-      alert(this.state.course.title);
+  handleChange = event => {
+    const course = { ...this.state.course, title: event.target.value };
+    this.setState({ course: course }); // I can omit the 2nd course because it matches the left side.  this is called the object shorthand syntax. this.setState({course})
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.dispatch(courseActions.createCourse(this.state.course));
   };
 
   render() {
@@ -35,4 +36,14 @@ class CoursesPage extends React.Component {
   }
 }
 
-export default CoursesPage;
+CoursesPage.propTypes = {
+    dispatch: PropTypes.func.isRequired
+};
+
+function mapStateToProps(state) {
+  return {
+    course: state.courses
+  };
+}
+
+export default connect(mapStateToProps)(CoursesPage);
