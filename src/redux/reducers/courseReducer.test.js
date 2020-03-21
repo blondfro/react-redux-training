@@ -17,7 +17,11 @@ it("should  add course when passed CREATE_COURSE_SUCCESS", function() {
 });
 
 it("should  update course when passed UPDATE_COURSE_SUCCESS", function() {
-  const initialState = [{ title: "A" }, { title: "B" }, { title: "C" }];
+  const initialState = [
+    { id: 1, title: "A" },
+    { id: 2, title: "B" },
+    { id: 3, title: "C" }
+  ];
 
   const course = { id: 2, title: "New Title" };
 
@@ -29,5 +33,5 @@ it("should  update course when passed UPDATE_COURSE_SUCCESS", function() {
 
   expect(updatedCourse.title).toEqual("New Title");
   expect(untouchedCourse.title).toEqual("A");
-  expect(newState.length).toEqual("3");
+  expect(newState.length).toEqual(3);
 });
